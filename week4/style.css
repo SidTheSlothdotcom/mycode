@@ -1,0 +1,71 @@
+.alarm-clock{
+
+    width: 800px;
+
+    height: 400px;
+
+    border: 18px solid black;
+
+    border-radius: 33px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+ 
+
+body{
+
+    align-items: center;
+
+    justify-content: center;
+
+    display: flex;
+
+    flex-direction: column;
+
+    margin-top: 100px;    
+
+}
+
+ 
+
+*{
+
+    margin: 0;
+
+    padding: 0;
+
+}
+
+ 
+
+h1{
+
+    font-size: 50px;
+
+    color: black;
+
+    margin-bottom: 20px;
+
+}
+
+ 
+
+.time{
+
+    font-size: 191px;
+
+    font-family: impact, sans-serif;
+
+    color: black;
+
+    margin-bottom: 20px;
+
+    text-align: center;
+
+}
