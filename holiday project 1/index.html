@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Typing Test</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>Typing Test</h1>
+            <p class="subtitle">Test your speed and precision with modern DOM manipulation.</p>
+        </header>
+
+        <!-- Live Telemetry Cards -->
+        <section class="telemetry-grid">
+            <div class="card">
+                <span class="card-label">Time Remaining</span>
+                <span id="timer" class="card-value">60s</span>
+            </div>
+            <div class="card">
+                <span class="card-label">WPM</span>
+                <span id="wpm" class="card-value">0</span>
+            </div>
+            <div class="card">
+                <span class="card-label">Accuracy</span>
+                <span id="accuracy" class="card-value">100%</span>
+            </div>
+            <div class="card">
+                <span class="card-label">Mistakes</span>
+                <span id="mistakes" class="card-value">0</span>
+            </div>
+        </section>
+
+        <!-- Typing Box / Quote Display -->
+        <section id="quote-container" class="quote-container" tabindex="0">
+            <!-- Dynamically populated via script.js -->
+        </section>
+
+        <!-- Controls -->
+        <div class="controls">
+            <button id="restart-btn" class="btn-restart">Restart Test</button>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

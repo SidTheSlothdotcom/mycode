@@ -1,0 +1,287 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess The Number</title>
+    <style>
+        :root {
+            --primary: #6D28D9;       /* Deep Violet */
+            --primary-hover: #5B21B6; /* Darker Violet */
+            --accent: #8B5CF6;        /* Light Violet Accent */
+            --bg-color: #F5F3FF;      /* Very Light Violet Tint */
+            --card-bg: #FFFFFF;
+            --text-main: #2E1065;     /* Deep Purple-Black */
+            --text-muted: #6D28D9;    /* Muted Violet */
+            --success: #10B981;
+            --warning: #D97706;
+            --error: #EF4444;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #EDE9FE 0%, #DDD6FE 100%);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-main);
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            padding: 2.5rem 2rem;
+            border-radius: 1.25rem;
+            box-shadow: 0 15px 35px rgba(109, 40, 217, 0.12);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(139, 92, 246, 0.15);
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        p {
+            color: #581C87;
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 0.9rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary);
+            background-color: #FAF5FF;
+            border: 2px solid #C4B5FD;
+            border-radius: 0.75rem;
+            text-align: center;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        input[type="number"]:focus {
+            border-color: var(--primary);
+            background-color: #FFFFFF;
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15);
+        }
+
+        /* Remove arrows from number input */
+        input[type="number"]::-webkit-inner-spin-button, 
+        input[type="number"]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.9rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
+            box-shadow: 0 4px 12px rgba(109, 40, 217, 0.25);
+        }
+
+        button:hover {
+            background-color: var(--primary-hover);
+            box-shadow: 0 6px 16px rgba(109, 40, 217, 0.35);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        button:disabled {
+            background-color: #D8B4FE;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+
+        #resetBtn {
+            background-color: #4C1D95;
+            display: none;
+            margin-top: 1rem;
+            width: 100%;
+        }
+
+        #resetBtn:hover {
+            background-color: #3B0764;
+        }
+
+        .feedback {
+            font-size: 1.1rem;
+            font-weight: 600;
+            min-height: 1.8rem;
+            margin-bottom: 1.2rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #EDE9FE;
+            padding-top: 1rem;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #7C3AED;
+            font-weight: 500;
+        }
+
+        /* Status Colors */
+        .up { color: var(--warning); }
+        .down { color: var(--error); }
+        .correct { color: var(--success); }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Guess The Number</h1>
+        <p>I'm thinking of a number between <strong>1 and 1000</strong>.<br>Can you guess what it is?</p>
+        
+        <div class="feedback" id="feedbackMsg">Make your first guess!</div>
+
+        <div class="input-group">
+            <input type="number" id="guessInput" placeholder="Enter your guess" min="1" max="1000" autofocus>
+            <button id="guessBtn">Submit Guess</button>
+        </div>
+
+        <button id="resetBtn">Play Again</button>
+
+        <div class="stats">
+            <span>Tries: <strong id="triesCount">0</strong></span>
+            <span>Range: 1 - 1000</span>
+        </div>
+    </div>
+
+    <script>
+        // Game Variables
+        let targetNumber;
+        let attempts;
+        let gameActive = true;
+
+        // DOM Elements
+        const guessInput = document.getElementById('guessInput');
+        const guessBtn = document.getElementById('guessBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const feedbackMsg = document.getElementById('feedbackMsg');
+        const triesCount = document.getElementById('triesCount');
+
+        // Initialize Game
+        function initGame() {
+            targetNumber = Math.floor(Math.random() * 1000) + 1;
+            attempts = 0;
+            gameActive = true;
+            
+            // Reset UI
+            guessInput.value = '';
+            guessInput.disabled = false;
+            guessBtn.disabled = false;
+            resetBtn.style.display = 'none';
+            
+            feedbackMsg.style.opacity = '0';
+            setTimeout(() => {
+                feedbackMsg.textContent = 'Make your first guess!';
+                feedbackMsg.className = 'feedback';
+                feedbackMsg.style.opacity = '1';
+            }, 100);
+            
+            triesCount.textContent = attempts;
+            guessInput.focus();
+        }
+
+        // Process the guess
+        function checkGuess() {
+            if (!gameActive) return;
+
+            const userGuess = parseInt(guessInput.value);
+
+            // Validation
+            if (isNaN(userGuess) || userGuess < 1 || userGuess > 1000) {
+                showFeedback("Please enter a valid number between 1 and 1000.", "down");
+                return;
+            }
+
+            attempts++;
+            triesCount.textContent = attempts;
+
+            if (userGuess === targetNumber) {
+                // Win Condition
+                showFeedback(`🎉 Correct! The number was ${targetNumber}. You found it in ${attempts} tries!`, "correct");
+                endGame();
+            } else if (userGuess < targetNumber) {
+                // Too Low
+                showFeedback("Too Low! Go UP ⬆️", "up");
+            } else {
+                // Too High
+                showFeedback("Too High! Go DOWN ⬇️", "up");
+            }
+
+            guessInput.value = '';
+            guessInput.focus();
+        }
+
+        // Display feedback with color
+        function showFeedback(message, type) {
+            feedbackMsg.style.opacity = '0';
+            
+            setTimeout(() => {
+                feedbackMsg.textContent = message;
+                feedbackMsg.className = `feedback ${type}`;
+                feedbackMsg.style.opacity = '1';
+            }, 150);
+        }
+
+        // End the game
+        function endGame() {
+            gameActive = false;
+            guessInput.disabled = true;
+            guessBtn.disabled = true;
+            resetBtn.style.display = 'block';
+        }
+
+        // Event Listeners
+        guessBtn.addEventListener('click', checkGuess);
+        
+        guessInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkGuess();
+            }
+        });
+
+        resetBtn.addEventListener('click', initGame);
+
+        window.onload = initGame;
+    </script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Receipt & Invoice Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="invoice-container">
+        <!-- Header & Metadata -->
+        <header class="invoice-header">
+            <h1>INVOICE</h1>
+            <div class="metadata-grid">
+                <div class="input-group">
+                    <label for="customerName">Customer Name</label>
+                    <input type="text" id="customerName" placeholder="e.g., Jane Doe">
+                </div>
+                <div class="input-group">
+                    <label for="invoiceNumber">Invoice #</label>
+                    <input type="text" id="invoiceNumber" value="INV-2026-001">
+                </div>
+            </div>
+        </header>
+
+        <!-- Add Item Form Row -->
+        <section class="add-item-section no-print">
+            <h3>Add Line Item</h3>
+            <div class="item-form-row">
+                <input type="text" id="itemName" placeholder="Item name">
+                <input type="number" id="itemQty" placeholder="Qty" min="1" value="1">
+                <input type="number" id="itemPrice" placeholder="Unit Price ($)" min="0" step="0.01">
+                <button id="addItemBtn" class="btn-primary">Add Item</button>
+            </div>
+        </section>
+
+        <!-- Dynamic Invoice Table -->
+        <table class="invoice-table">
+            <thead>
+                <tr>
+                    <th>Item Description</th>
+                    <th>Qty</th>
+                    <th>Unit Price</th>
+                    <th>Total</th>
+                    <th class="no-print">Action</th>
+                </tr>
+            </thead>
+            <tbody id="invoiceTableBody">
+                <!-- Dynamically rendered rows go here -->
+            </tbody>
+        </table>
+
+        <!-- Summary Totals -->
+        <section class="invoice-summary">
+            <div class="summary-row">
+                <span>Subtotal:</span>
+                <span id="subtotalDisplay">$0.00</span>
+            </div>
+            <div class="summary-row">
+                <span>Tax (18%):</span>
+                <span id="taxDisplay">$0.00</span>
+            </div>
+            <div class="summary-row grand-total">
+                <span>Grand Total:</span>
+                <span id="grandTotalDisplay">$0.00</span>
+            </div>
+        </section>
+
+        <!-- Print Action -->
+        <div class="actions-section no-print">
+            <button id="printBtn" class="btn-success">Print Invoice</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emoji Slot Machine</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="cabinet">
+        <h1>✨ ARCADE SLOT ✨</h1>
+        <div class="score-board">Score: <span id="score">100</span></div>
+        
+        <div class="slot-machine">
+            <div class="reel" id="reel1">🍒</div>
+            <div class="reel" id="reel2">🍋</div>
+            <div class="reel" id="reel3">🍇</div>
+        </div>
+
+        <div class="message" id="message">Match 3 emojis to win!</div>
+        <button id="spinBtn" onclick="spinSlots()">SPIN (-10 pts)</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

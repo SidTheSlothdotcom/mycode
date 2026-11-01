@@ -1,0 +1,76 @@
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+}
+
+/* Main Container Card */
+.container {
+    background: #ffffff;
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 480px;
+    text-align: center;
+}
+
+/* Heading Styling */
+h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1a202c;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.5px;
+}
+
+/* QR Reader Box Wrapper */
+#qr-code-reader {
+    width: 100% !important;
+    border: none !important;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #f8fafc;
+    padding: 10px;
+}
+
+/* Customizing html5-qrcode library elements */
+#qr-code-reader video {
+    border-radius: 8px;
+    width: 100% !important;
+    object-fit: cover;
+}
+
+#qr-code-reader__dashboard_section_csr button,
+#qr-code-reader button {
+    background-color: #4f46e5 !important;
+    color: white !important;
+    border: none !important;
+    padding: 10px 20px !important;
+    border-radius: 8px !important;
+    font-size: 0.9rem !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    transition: background-color 0.2s ease, transform 0.1s ease !important;
+    margin-top: 10px !important;
+}
+
+#qr-code-reader__dashboard_section_csr button:hover,
+#qr-code-reader button:hover {
+    background-color: #4338ca !important;
+}
+
+#qr-code-reader__dashboard_section_csr button:active,
+#qr-code-reader button:active {
+    transform: scale(0.98);
+}
